@@ -29,6 +29,18 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy Kubernetes') {
+            agent {
+                kubernetes {
+                        cloud 'cloud-dev'
+                }
+            }
+
+            steps {
+                kubernetesDeploy(config: '**/k8s/**', kubeconfig: 'cluster-dev-kubeconfig' )
+            }
+        }
     }
 
 
